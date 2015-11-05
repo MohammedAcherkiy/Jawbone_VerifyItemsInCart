@@ -1,10 +1,7 @@
 package jawboneCart;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +15,7 @@ public class JawboneCartItems {
 
 	@BeforeMethod
 	public void SetUp() {
-		// go to jawbon website
+		// go to Jawbone url
 		driver = new FirefoxDriver();
 		jawboneHomePage = WebUtil.goToJawboneHomePage(driver);
 
@@ -26,29 +23,26 @@ public class JawboneCartItems {
 
 	@Test
 	public void VerifyItemsInCart() {
+		// Click on Shop Link
 		MarketPlacePage marketPlacePage = jawboneHomePage.shoplink(driver);
 
-		// wait for the free shipping text to be visible
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.cssSelector(".store-policy-bar >li[class='free-shipping']")));
-
 		// Assert that we are in the marketPlacePage
-		Assert.assertTrue(
-				driver.findElement(By.cssSelector(".store-policy-bar >li[class='free-shipping']")).isDisplayed());
+		Assert.assertTrue(marketPlacePage.isElementExist(driver));
+
 		// Click add to cart to add"UP2: Oat Spectrum Lightweight Thin Strap"
 
 		marketPlacePage.clickButton(driver);
 
 		// Assert that View cart link is visible
-		Assert.assertTrue(driver.findElement(By.linkText("VIEW CART")).isDisplayed());
+
+		Assert.assertTrue(marketPlacePage.isElementExist2(driver));
 
 		// Click on view Cart
 
 		CheckOutPage checkOutPage = marketPlacePage.clickViewCart(driver);
-
-		Assert.assertEquals(driver.findElement(By.cssSelector(".left.prod-name>b")).getText(),
-				"UP2 by Jawbone - Oat Spectrum Rope");
+		// Assert that UP2 by Jawbone -Oat Spectrum Rope is visible on
+		// CheckoutPage
+		Assert.assertEquals(checkOutPage.getText(driver), "UP2 by Jawbone - Oat Spectrum Rope");
 
 	}
 
