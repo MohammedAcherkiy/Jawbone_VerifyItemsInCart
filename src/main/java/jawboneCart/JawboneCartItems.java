@@ -38,8 +38,27 @@ public class JawboneCartItems {
 		Assert.assertTrue(marketPlacePage.isElementExist2(driver));
 
 		// Click on view Cart
-
 		CheckOutPage checkOutPage = marketPlacePage.clickViewCart(driver);
+
+		// Assert that UP2 by Jawbone -Oat Spectrum Rope is visible on
+		// CheckoutPage
+		Assert.assertEquals(checkOutPage.getText(driver), "UP2 by Jawbone - Oat Spectrum Rope");
+
+		// Click on Terms Of Use
+		NewJawboneBrowser newJawboneBrowser = checkOutPage.termsOfUse(driver);
+
+		// assert that the cart id visible in the new browser window.
+		Assert.assertTrue(newJawboneBrowser.isElementExist3(driver));
+
+		// Click on the cart in the new window
+		newJawboneBrowser.clickOnCartInNewBrowser(driver);
+
+		// wait for the check out link to be visible
+		newJawboneBrowser.waitForcheckOutLinkToBeVisible(driver);
+
+		// click on the checkOutLink to proceed
+		checkOutPage = newJawboneBrowser.checkOutLink(driver);
+
 		// Assert that UP2 by Jawbone -Oat Spectrum Rope is visible on
 		// CheckoutPage
 		Assert.assertEquals(checkOutPage.getText(driver), "UP2 by Jawbone - Oat Spectrum Rope");

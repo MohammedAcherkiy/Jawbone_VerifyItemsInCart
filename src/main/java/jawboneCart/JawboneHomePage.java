@@ -15,6 +15,7 @@ public class JawboneHomePage {
 		WebUtil.waitForElementVisible(driver, By.cssSelector(".store-policy-bar >li[class='free-shipping']"));
 
 		return PageFactory.initElements(driver, MarketPlacePage.class);
+
 	}
 
 }
